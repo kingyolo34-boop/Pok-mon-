@@ -21,7 +21,7 @@ The Danes attack the protagonist's mother in Cinderfall. Three Poké Balls fall,
 - Polished Emerald-style world and battle presentation, stable saving and emulator compatibility
 
 ## Current status
-The Emerald expansion source and modified builds have previously been shared as project archives, but **this repository does not yet contain the integrated source project or a verified ROM build**. The next milestone is to import the source files (excluding copyrighted ROMs) and run a clean GBA build in CI. This document is a planning milestone, not a claim that the game is complete.
+**Chapter One source build compiled successfully** in GitHub Actions: https://github.com/kingyolo34-boop/Pok-mon-/actions/runs/42922008393. The 32 MiB ROM passed GBA-header and checksum checks. See [Chapter One playtest instructions](CHAPTER_ONE_PLAYTEST.md). The Cinderfall attack, starter selection, mother-death flag, and new Rook trainer event now have source-code implementations, while major visuals remain placeholders. Emulator playthrough has **not yet been verified**. The repository builds from pinned upstream expansion source with our local Python modifiers; it does **not** yet vendor the entire upstream source tree.
 
 ## Repository hygiene
 Do not commit commercial ROMs (`*.gba`) or saves (`*.sav`, `*.srm`), BIOS files, secrets, or keys. Preserve upstream credits and licenses when importing the expansion source.
