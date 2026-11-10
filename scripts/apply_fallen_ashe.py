@@ -12,13 +12,13 @@ s = file.read_text(encoding='utf-8')
 entries = {
  'TREECKO': ('Verdrake', 'TYPE_GRASS', (49,55,48,64,62,42), 'Young Sprout',18),
  'GROVYLE': ('Leafdrake', 'TYPE_GRASS, TYPE_DRAGON', (68,78,70,72,75,57), 'Thorn Drake',36),
- 'SCEPTILE': ('Grovedrake', 'TYPE_GRASS, TYPE_DRAGON', (94,110,94,78,80,79), 'Forest Warden',None),
+ 'SCEPTILE': ('Grovedrake', 'TYPE_GRASS, TYPE_DRAGON', (94,110,94,78,80,79), 'Forest Drake',None),
  'MUDKIP': ('Aqualye', 'TYPE_WATER', (53,42,52,62,66,45), 'Tide Foal',18),
  'MARSHTOMP': ('Tidalcorn', 'TYPE_WATER, TYPE_FAIRY', (67,58,68,80,86,61), 'Tide Unicorn',36),
- 'SWAMPERT': ('Abysscorn', 'TYPE_WATER, TYPE_FAIRY', (88,70,90,101,103,83), 'Abyss Unicorn',None),
- 'TORCHIC': ('Embergryph', 'TYPE_FIRE', (46,64,44,64,58,44), 'Ember Griffin',18),
- 'COMBUSKEN': ('Flaregryph', 'TYPE_FIRE, TYPE_FLYING', (63,84,63,89,68,53), 'Flame Griffin',36),
- 'BLAZIKEN': ('Inferngryph', 'TYPE_FIRE, TYPE_FLYING', (80,117,76,114,76,72), 'Inferno Griff',None),
+ 'SWAMPERT': ('Abysscorn', 'TYPE_WATER, TYPE_FAIRY', (88,70,90,101,103,83), 'Abyss Horn',None),
+ 'TORCHIC': ('Embergryph', 'TYPE_FIRE', (46,64,44,64,58,44), 'Ember Griff',18),
+ 'COMBUSKEN': ('Flaregryph', 'TYPE_FIRE, TYPE_FLYING', (63,84,63,89,68,53), 'Flame Griff',36),
+ 'BLAZIKEN': ('Inferngryph', 'TYPE_FIRE, TYPE_FLYING', (80,117,76,114,76,72), 'Inferno Gryph',None),
 }
 for species, (name,types,stats,category,evo) in entries.items():
     pattern = r'(    \[SPECIES_' + species + r'\] =\s*\{)(.*?)(?=\n    \[SPECIES_|\Z)'
