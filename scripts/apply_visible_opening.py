@@ -25,9 +25,16 @@ def replace_text(rel, label, content):
     # The script labels are top-level: replace only the named text block.
     a=s.find(label+":")
     if a<0: raise RuntimeError("Text label not found: "+label)
-    b=s.find("\n\n",a)
-    if b<0: raise RuntimeError("No text-block boundary for "+label)
-    s=s[:a]+label+":\n"+content.rstrip()+"\n"+s[b:]
+    line_end=s.find("\n",a)
+    if line_end<0: raise RuntimeError("No text label line ending: "+label)
+    # Birch text uses '::' (global assembler labels). Preserve it!
+    label_line=s[a:line_end]
+    if label_line not in (label+":",label+"::"):
+        raise RuntimeError("Unexpected text label form: "+label_line)
+    b=s.find("\n\n",line_end)
+    if b<0: b=len(s)
+    ending="\n\n" if b<len(s) else "\n"
+    s=s[:a]+label_line+"\n"+content.rstrip()+ending+s[b+2:]
     p.write_text(s,encoding="utf-8")
 
 # Show the custom name in the ROM header and emulator's ROM selector.
