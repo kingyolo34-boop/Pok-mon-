@@ -1,5 +1,5 @@
 # Pokémon Fallen Ashe — Story Expansion: THE FALL / THE REDEMPTION
-**Narrative draft v1 • November 2026 • Design, not yet compiled game content**
+**Narrative draft v2 • November 2026 • Rook's death now locked canon • Design, not yet compiled game content**
 
 > **"They were right about one thing. I could stop the Danes. They never told me what I might become trying."**
 
@@ -97,25 +97,60 @@ VEYLITH: "You will have to let them choose whether they follow."
 **Smokerdile:** Its poisonous fire spreads because its body is being overloaded. Freeing it risks a dangerous eruption; the player and guardians divert the flames away from civilians.
 **Deku and Asta:** Participate visibly in the rescue and final assault. They are not decorative collectibles.
 
-## ACT VI — ASHES DON'T FORGIVE; PEOPLE CAN (finale)
-At the Ash Crown tower, Rook offers the player control of the machine. This is the twisted final test: the boy could bring the Danes to their knees by doing exactly what they did to Pokémon. He refuses to bind the legendaries. His starter, Deku and Asta stand by him voluntarily, not because the Mark commands them.
+## ACT VI — THE PRICE OF REVENGE (finale)
+At the Ash Crown tower, Rook offers the protagonist the power to bind Pokémon and force every Dane to kneel. The hero refuses that power, but he has not yet conquered his hatred. After the final Pokémon battle, Rook is beaten and unable to fight back. For the first time, the man who killed Mom is within reach.
 
-**Final Rook fight:** Rook's full evolved team battles the protagonist after Rook taunts Mom's memory. No cheap redemption for Rook. His cruelty remains his responsibility. If the game later offers Rook remorse, it cannot erase his murder or years of hunting a child.
+**Locked canon:** the protagonist **personally kills Rook** in a scripted, non-graphic scene. This is an irreversible story event, not a choice the game pretends the player can undo. There is a fade to black, a brief sound, then absolute silence. Rook is dead. No last-minute rescue, fake-out, possession reveal, or future forgiveness.
 
-After the battle, Crown machinery fails. Rook falls near a collapse. The protagonist has the chance to leave him there and walk away. Instead he helps clear a safe path—not because Rook is forgiven, but because he will not choose who deserves to live by the Danes' rules. Rook is captured by survivors and held accountable.
+### Cutscene: The silence after Rook
+ROOK: "Go on. Isn't this what you came for?"
 
-**The final reversal:**
-ROOK: "All that power. You could have made us kneel."
-PLAYER: "I don't want anyone kneeling."
+PLAYER: "You took her from me."
 
-Shadowvile and Smokerdile are freed; Veylith's eclipse lifts; rain washes the ash without magically erasing every scar.
+ROOK: "Then take what you came for."
+
+[The protagonist acts. Screen fades to black. No battle fanfare.]
+
+[Fade in. Rook lies motionless. His Poké Ball rests untouched in the ash.]
+
+[The player's starter steps forward. Deku lowers his head. Asta stops moving. Neither celebrates.]
+
+PLAYER: "It's over."
+
+[Silence. Wind passes through the damaged tower.]
+
+PLAYER: "...Why doesn't it feel over?"
+
+[Memory of Mom's final words: "Keep going. Save who you can."]
+
+PLAYER: "I thought this would make it stop."
+
+[The player's hand shakes. He realizes Rook's death has not restored Mom, healed Cinderfall or spared Lastwood. The thing he chased across Ashvale is gone, and he is still broken.]
+
+**This is the pivotal realization:** killing Rook was what the protagonist believed he needed, **but it was not the right answer**. His revenge is complete; his grief remains. Rook does not get a moral victory over him by being right about everything, but the hero sees that revenge nearly cost him the person he wanted to be.
+
+### The final choice is what he does NEXT
+An alarm sounds. The Ash Crown remains active. Dane officers are preparing to seize control of the broken machinery. Shadowvile and Smokerdile are still in danger. The protagonist can do nothing to bring Rook back; he can still choose whom to save.
+
+Veylith: "Death closes no wound by itself. What will you open now, child of the eclipse?"
+
+PLAYER: "The cages."
+
+He breaks the Crown's control, frees Shadowvile and Smokerdile, works alongside Deku and Asta to evacuate prisoners, and refuses to command the legendaries as slaves. This is **the beginning, not the completion, of redemption**. His future deeds cannot erase killing Rook. No crowd cheers for it. Some allies need time to trust him. He accepts that he must live with what he did and still make better choices.
+
+## Story implementation notes for the final confrontation
+- Final Pokémon battle against Rook first; **human death after the battle**, depicted with fade-to-black rather than graphic violence.
+- Separate event flags: ROOK_FINAL_BATTLE_WON, ROOK_KILLED, REVENGE_REALIZED_EMPTY, ASH_CROWN_FREED. Set them in sequence; prevent replay on reload.
+- Disable victory music after Rook's death and use ambient wind/silence; do not frame murder as a reward.
+- Scripted death is canonical; don't offer a fake spare/kill toggle unless an actual branching alternate story is deliberately designed later.
+- Keep the protagonist's guilt and the towns' responses consistent in epilogue dialogue.
 
 ## EPILOGUE — CINDERFALL REBORN
 Buildings remain broken. Roads are still dangerous. Rebuilding takes time and people. The protagonist returns to Mom's boarded-up house, finds an old recording, and hears:
 MOM: "If you ever lose your way, don't ask whether you can be the person you were. Ask what you can do for someone tomorrow."
 He puts down his old wanted poster in the fireplace and watches it burn. His starter waits at the doorway.
 
-The title finally makes sense: **he fell into the ashes and chose to rise differently.**
+The title finally makes sense: **he fell into the ashes; even after killing Rook, he must choose how to rise.** The victory does not absolve him. His everyday acts of care are the first steps of redemption.
 
 ## Cutscene / game-development acceptance criteria
 - Never skip the opening starter choice, Mom's death by Rook, or the immediate first battle.
@@ -123,8 +158,8 @@ The title finally makes sense: **he fell into the ashes and chose to rise differ
 - Rook relentlessly hunts the hero across multiple encounters and engineers Black Rain, but the player also owns his reckless decision.
 - Show Deku and Asta each rescuing people onscreen, alive and truly legendary.
 - The Black Rain disaster must modify later NPC dialogue and visuals, not be one line of narration.
-- Rook's defeat is not the protagonist's redemption; it is the **choice to protect and not enslave**.
+- Rook's **death by the protagonist's hand** is canon; the hero immediately recognizes that revenge did not heal him. Redemption begins with the later **choice to protect and not enslave**.
 - Endgame legendary bond is consent/trust, not capture by forced power.
-- Track the hero's arc through story flags: CINDERFALL_ESCAPED, MOM_TRUTH_REVEALED, BLACK_RAIN_TRIGGERED, LASTWOOD_HELPED, DEKU_TRIAL_PASSED, ASTA_RESCUE_DONE, CROWN_BONDS_BROKEN, CINDERFALL_REBUILD.
+- Track the hero's arc through story flags: CINDERFALL_ESCAPED, MOM_TRUTH_REVEALED, BLACK_RAIN_TRIGGERED, LASTWOOD_HELPED, DEKU_TRIAL_PASSED, ASTA_RESCUE_DONE, ROOK_FINAL_BATTLE_WON, ROOK_KILLED, REVENGE_REALIZED_EMPTY, CROWN_BONDS_BROKEN, CINDERFALL_REBUILD.
 - Wren's repeatable Blissey trainer (Struggle only, 2× XP, free heal, scaling, cannot capture) is an independent gameplay system that should remain usable after the Black Rain story scene.
 - This document is a **story design expansion**. It is NOT yet implemented in the successful Fallen Ashe GBA source-build.
