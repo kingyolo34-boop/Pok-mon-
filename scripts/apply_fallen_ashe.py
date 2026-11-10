@@ -18,8 +18,9 @@ entries = {
  'SWAMPERT': ('Abysscorn', 'TYPE_WATER, TYPE_FAIRY', (88,70,90,101,103,83), 'Abyss Horn',None),
  'TORCHIC': ('Embergryph', 'TYPE_FIRE', (46,64,44,64,58,44), 'Ember Griff',18),
  'COMBUSKEN': ('Flaregryph', 'TYPE_FIRE, TYPE_FLYING', (63,84,63,89,68,53), 'Flame Griff',36),
- 'BLAZIKEN': ('Inferngryph', 'TYPE_FIRE, TYPE_FLYING', (80,117,76,114,76,72), 'Inferno Gryph',None),
+ 'BLAZIKEN': ('Inferngryph', 'TYPE_FIRE, TYPE_FLYING', (80,117,76,114,76,72), 'Inferno Wing',None),
 }
+assert all(len(v[3]) <= 12 for v in entries.values()), 'Category label exceeds GBA limit'
 for species, (name,types,stats,category,evo) in entries.items():
     pattern = r'(    \[SPECIES_' + species + r'\] =\s*\{)(.*?)(?=\n    \[SPECIES_|\Z)'
     match = re.search(pattern, s, re.S)
