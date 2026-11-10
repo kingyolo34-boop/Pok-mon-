@@ -1,0 +1,74 @@
+name: Build Fallen Ashe GBA (starter test)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/build-fallen-ashe.yml"
+      - "scripts/**"
+      - "patches/**"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out Fallen Ashe scripts
+        uses: actions/checkout@v4
+
+      - name: Install the GBA ARM toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential binutils-arm-none-eabi gcc-arm-none-eabi \
+            libnewlib-arm-none-eabi libpng-dev python3 python3-pil
+
+      - name: Fetch pinned Emerald Expansion source
+        run: |
+          git clone --no-checkout https://github.com/rh-hideout/pokeemerald-expansion.git expansion
+          git -C expansion checkout be3b089fc121143b7ccf6503ea1385b8abe05b8c
+          echo "Upstream commit: $(git -C expansion rev-parse HEAD)"
+
+      - name: Apply Fallen Ashe starter source data
+        run: |
+          python3 scripts/apply_fallen_ashe.py expansion
+          grep -E 'speciesName = _\("(Verdrake|Aqualye|Embergryph)"\)' \
+            expansion/src/data/pokemon/species_info/gen_3_families.h
+
+      - name: Compile a real native GBA ROM
+        working-directory: expansion
+        run: |
+          make -j2 modern 2>&1 | tee ../gba-build.log
+          test -s pokeemerald.gba
+
+      - name: Check output ROM
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          rom = Path("expansion/pokeemerald.gba").read_bytes()
+          assert len(rom) >= 0xC0
+          assert rom[0xB2] == 0x96
+          expected = (-(sum(rom[0xA0:0xBD]) + 0x19)) & 0xFF
+          assert rom[0xBD] == expected, "Bad GBA header checksum"
+          print("ROM build OK:", len(rom), "bytes")
+          PY
+
+      - name: Upload playable test ROM
+        uses: actions/upload-artifact@v4
+        with:
+          name: Fallen-Ashe-GBA-Starter-Test
+          path: expansion/pokeemerald.gba
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload compiler log if build fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Fallen-Ashe-Build-Diagnostics
+          path: gba-build.log
+          if-no-files-found: warn
+          retention-days: 7
