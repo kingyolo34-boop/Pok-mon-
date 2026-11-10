@@ -1,0 +1,219 @@
+--- a/data/maps/Route101/scripts.inc
++++ b/data/maps/Route101/scripts.inc
+@@ -5,6 +5,7 @@
+ 
+ Route101_OnTransition:
+ 	call ProfBirch_EventScript_UpdateLocation
++	setflag FLAG_FALLEN_ASHE_ROOK_HIDDEN
+ 	end
+ 
+ Route101_OnFrame:
+@@ -19,6 +20,7 @@
+ Route101_EventScript_StartBirchRescue::
+ 	lockall
+ 	playbgm MUS_HELP, TRUE
++	playse SE_THUNDER
+ 	msgbox Route101_Text_HelpMe, MSGBOX_DEFAULT
+ 	closemessage
+ 	setobjectxy LOCALID_ROUTE101_BIRCH, 0, 15
+@@ -215,20 +217,35 @@
+ 	msgbox Route101_Text_RouteSign, MSGBOX_SIGN
+ 	end
+ 
++@ Fallen Ashe chapter one. The player sees Mom chased by a Dane, chooses an
++@ original starter from her dropped Poké Balls, and confronts Rook.
++@ The new Rook object is a temporary Maxie-based sprite until original art ships.
+ Route101_EventScript_BirchsBag::
+     lockall
+     faceplayer
++    playse SE_BALL_BOUNCE_1
+     msgbox FallenAshe_Text_MomDropsBalls, MSGBOX_DEFAULT
+-    setflag FLAG_SYS_POKEMON_GET
+-    setflag FLAG_RESCUED_BIRCH
++    @ This is Emerald's native three-Poké-Ball selector. The starter species
++    @ currently occupy the Treecko, Mudkip and Torchic source species slots.
+     fadescreen FADE_TO_BLACK
+     removeobject LOCALID_ROUTE101_ZIGZAGOON
+     setobjectxy LOCALID_PLAYER, 6, 13
+     applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+     waitmovement 0
+     special ChooseStarter
+-    @ The source-based starter callback resumes this event without a wild battle.
++    @ Returns to this script after confirming Verdrake, Aqualye or Embergryph.
++    setflag FLAG_SYS_POKEMON_GET
++    setflag FLAG_RESCUED_BIRCH
++    setobjectxy LOCALID_ROUTE101_BIRCH, 9, 13
++    clearflag FLAG_FALLEN_ASHE_ROOK_HIDDEN
++    addobject LOCALID_ROUTE101_ROOK
++    setobjectxy LOCALID_ROUTE101_ROOK, 9, 11
++    fadescreen FADE_FROM_BLACK
++    applymovement LOCALID_ROUTE101_ROOK, Common_Movement_WalkInPlaceFasterDown
++    waitmovement 0
++    msgbox FallenAshe_Text_RookArrives, MSGBOX_DEFAULT
+     msgbox FallenAshe_Text_MomFinalWords, MSGBOX_DEFAULT
++    playse SE_THUNDER
+     fadescreen FADE_TO_BLACK
+     removeobject LOCALID_ROUTE101_BIRCH
+     setflag FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE
+@@ -236,12 +253,14 @@
+     setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+     setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MOM
+     setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM
+-    delay 20
++    delay 24
+     fadescreen FADE_FROM_BLACK
+     msgbox FallenAshe_Text_RookConfesses, MSGBOX_DEFAULT
+     special HealPlayerParty
+     trainerbattle_single TRAINER_FALLEN_ASHE_ROOK, FallenAshe_Text_RookChallenges, FallenAshe_Text_RookDefeated
+     msgbox FallenAshe_Text_Escape, MSGBOX_DEFAULT
++    removeobject LOCALID_ROUTE101_ROOK
++    setflag FLAG_FALLEN_ASHE_ROOK_HIDDEN
+     setflag FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG
+     clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
+     setvar VAR_BIRCH_LAB_STATE, 2
+@@ -250,35 +269,48 @@
+     checkplayergender
+     call_if_eq VAR_RESULT, MALE, Route101_EventScript_HideMayInBedroom
+     call_if_eq VAR_RESULT, FEMALE, Route101_EventScript_HideBrendanInBedroom
++    @ Birch's lab remains the first safehouse so the Emerald Pokédex and
++    @ early game progression still work without a complete map rebuild.
+     warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 6, 5
+     waitstate
+     releaseall
+     end
+ 
++Route101_EventScript_RookAfterBattle::
++    msgbox FallenAshe_Text_RookGone, MSGBOX_DEFAULT
++    end
++
+ FallenAshe_Text_MomDropsBalls:
+     .string "MOM: The DANES found us!\p"
+-    .string "Three POKé BALLS spill from her\n"
+-    .string "bag onto the broken road.\p"
+-    .string "MOM: Choose one! NOW!$"
++    .string "Three POKé BALLS tumble from\n"
++    .string "her bag onto the broken road.\p"
++    .string "MOM: Grab one! I'll hold them off!$"
++FallenAshe_Text_RookArrives:
++    .string "ROOK: So that's her child.\p"
++    .string "MOM: Leave my child alone!\p"
++    .string "ROOK: The seal. Give it to me.$"
+ FallenAshe_Text_MomFinalWords:
+-    .string "ROOK: You should have handed over\n"
+-    .string "the seal.\p"
+-    .string "MOM: Don't hurt my child!\p"
+-    .string "MOM: Live a good life.\n"
+-    .string "That will be my victory...$"
++    .string "MOM: You have your POKéMON now.\p"
++    .string "MOM: Keep going. Save who you can.\p"
++    .string "And know that I love you.$"
+ FallenAshe_Text_RookConfesses:
+-    .string "Rook strikes your mother down.\n"
+-    .string "She doesn't get back up.\p"
+-    .string "ROOK: I killed her. Now you're next.$"
++    .string "Rook strikes your mother.\n"
++    .string "She falls and does not rise.\p"
++    .string "ROOK: I killed her. Look at me.\p"
++    .string "You're next.$"
+ FallenAshe_Text_RookChallenges:
+-    .string "ROOK: Let's see what her final\n"
++    .string "ROOK: Show me what her final\n"
+     .string "gift can do!$"
+ FallenAshe_Text_RookDefeated:
+-    .string "ROOK: Tch. The hunt isn't over.$"
++    .string "ROOK: This changes nothing.\n"
++    .string "I'll find you again.$"
+ FallenAshe_Text_Escape:
+-    .string "The DANES fall back. The road\n"
+-    .string "north is open.\p"
+-    .string "You escape into the ashes.$"
++    .string "The DANES retreat from the road.\p"
++    .string "Birch's lab is your first shelter.\n"
++    .string "Your journey begins in ashes.$"
++FallenAshe_Text_RookGone:
++    .string "The road is finally quiet.\n"
++    .string "You remember your mother's words.$"
+ 
+ Route101_EventScript_HideMayInBedroom::
+ 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_BEDROOM
+--- a/data/maps/Route101/map.json
++++ b/data/maps/Route101/map.json
+@@ -68,7 +68,7 @@
+     },
+     {
+       "local_id": "LOCALID_ROUTE101_ZIGZAGOON",
+-      "graphics_id": "OBJ_EVENT_GFX_ZIGZAGOON_1",
++      "graphics_id": "OBJ_EVENT_GFX_MAGMA_MEMBER_M",
+       "x": 10,
+       "y": 13,
+       "elevation": 0,
+@@ -105,6 +105,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "Route101_EventScript_Boy",
+       "flag": "FLAG_HIDE_ROUTE_101_BOY"
++    },
++    {
++      "local_id": "LOCALID_ROUTE101_ROOK",
++      "graphics_id": "OBJ_EVENT_GFX_MAXIE",
++      "x": 9,
++      "y": 11,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Route101_EventScript_RookAfterBattle",
++      "flag": "FLAG_FALLEN_ASHE_ROOK_HIDDEN"
+     }
+   ],
+   "warp_events": [],
+--- a/include/constants/flags.h
++++ b/include/constants/flags.h
+@@ -94,7 +94,7 @@
+ #define FLAG_UNUSED_0x048    0x48 // Unused Flag
+ #define FLAG_UNUSED_0x049    0x49 // Unused Flag
+ #define FLAG_FALLEN_ASHE_MOM_GONE 0x4A // Unused Flag
+-#define FLAG_UNUSED_0x04B    0x4B // Unused Flag
++#define FLAG_FALLEN_ASHE_ROOK_HIDDEN 0x4B // Hide Rook until the starter is chosen
+ #define FLAG_UNUSED_0x04C    0x4C // Unused Flag
+ #define FLAG_UNUSED_0x04D    0x4D // Unused Flag
+--- a/include/constants/map_event_ids.h
++++ b/include/constants/map_event_ids.h
+@@ -755,6 +755,7 @@
+ // MAP_ROUTE101
+ #define LOCALID_ROUTE101_BIRCH 2
+ #define LOCALID_ROUTE101_ZIGZAGOON 4
++#define LOCALID_ROUTE101_ROOK 7 // New event appended to Route 101
+ 
+ // MAP_ROUTE103
+ #define LOCALID_ROUTE103_RIVAL 2
+--- a/src/starter_choose.c
++++ b/src/starter_choose.c
+@@ -117,8 +117,8 @@
+ static const u16 sStarterMon[STARTER_MON_COUNT] =
+ {
+     GRASS_STARTER,
++    WATER_STARTER,
+     FIRE_STARTER,
+-    WATER_STARTER,
+ };
+ 
+ static const struct BgTemplate sBgTemplates[3] =
+--- a/src/data/trainers.party
++++ b/src/data/trainers.party
+@@ -16917,12 +16917,12 @@
+ === TRAINER_FALLEN_ASHE_ROOK ===
+ Name: ROOK
+ Class: Team Magma
+-Pic: Magma Grunt M
++Pic: Magma Leader Maxie
+ Gender: Male
+ Music: Magma
+ AI: Check Bad Move
+ 
+ Poochyena
+-Level: 6
++Level: 4
+ - Tackle
+ - Howl
