@@ -78,10 +78,10 @@ for ob in d["object_events"]:
         ob["graphics_id"]="OBJ_EVENT_GFX_MOM"
     elif ob.get("local_id")=="LOCALID_ROUTE101_ZIGZAGOON":
         ob["graphics_id"]="OBJ_EVENT_GFX_MAGMA_MEMBER_M"
-if any(ob.get("local_id")=="7" for ob in d["object_events"]):
-    raise RuntimeError("Rook NPC ID 7 already used")
+if any(ob.get("local_id")=="LOCALID_ROUTE101_ROOK" for ob in d["object_events"]):
+    raise RuntimeError("Rook NPC ID already used")
 d["object_events"].append({
-    "local_id":"7",
+    "local_id":"LOCALID_ROUTE101_ROOK",
     "graphics_id":"OBJ_EVENT_GFX_MAXIE",
     "x":9,"y":11,"elevation":0,
     "movement_type":"MOVEMENT_TYPE_FACE_DOWN",
@@ -121,9 +121,9 @@ event= r'''Route101_EventScript_BirchsBag::
     special ChooseStarter
     @ The modified starter callback returns directly to this scene.
     clearflag FLAG_FALLEN_ASHE_ROOK_HIDDEN
-    addobject 7
+    addobject LOCALID_ROUTE101_ROOK
     fadescreen FADE_FROM_BLACK
-    applymovement 7, FallenAshe_Movement_RookFacesPlayer
+    applymovement LOCALID_ROUTE101_ROOK, FallenAshe_Movement_RookFacesPlayer
     waitmovement 0
     msgbox FallenAshe_Text_RookRevealsMark, MSGBOX_DEFAULT
     msgbox FallenAshe_Text_MomsLastWords, MSGBOX_DEFAULT
@@ -140,7 +140,7 @@ event= r'''Route101_EventScript_BirchsBag::
     special HealPlayerParty
     trainerbattle_single TRAINER_FALLEN_ASHE_ROOK, FallenAshe_Text_RookChallenge, FallenAshe_Text_RookLoses
     msgbox FallenAshe_Text_RookHuntsYou, MSGBOX_DEFAULT
-    removeobject 7
+    removeobject LOCALID_ROUTE101_ROOK
     setflag FLAG_FALLEN_ASHE_ROOK_HIDDEN
     setflag FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG
     clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
