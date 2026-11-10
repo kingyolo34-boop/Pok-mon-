@@ -79,21 +79,21 @@ Rook becomes increasingly brutal and reckless, abandoning some Dane orders to hu
 **Player emotion:** learning that the "monsters" were victims, too.
 
 ### Act IV — The Broken Eclipse (final gyms / endgame)
-The Keeper's Seal opens a forgotten sanctuary. The third world legendary, **Veylith** (Ghost/Fairy), is revealed as the living eclipse: it marked the player years ago when Mom shielded them from the Crown's first eruption. **The player alone can break the system's bond**, but only after winning the trust of the other legendary guardians. The Danes' leaders activate the full Ash Crown to control every Pokémon in Ashvale and prepare to execute the protagonist on sight. Rook makes one last stand at the approach to the Crown.
+The Keeper's Seal opens a forgotten sanctuary. The third world legendary, **Veylith** (Ghost/Fairy), is revealed as the living eclipse: it marked the player years ago when Mom shielded them from the Crown's first eruption. **The player alone can break the system's bond**, but only after winning the trust of the other legendary guardians. The Danes' leaders activate the full Ash Crown to control every Pokémon in Ashvale and prepare to execute the protagonist on sight. Rook makes one last stand at the approach to the Crown. **Canon: after the final battle, the protagonist personally kills Rook. Rook does not survive, escape, or receive a redemption. That irreversible choice is the instant the protagonist understands revenge was not the answer.**
 
 At the finale, the player and their Pokémon confront the Dane command. Shadowvile and Smokerdile are freed, the Ash Crown loses its power, and the sky brightens for the first time in years. **The protagonist saves Ashvale not because the Mark makes them invincible, but because they found allies who chose to stand together.**
 
 **Player emotion:** protecting life, not living only for revenge.
 
 ### Epilogue — Cinderfall Rises
-The ruins do not magically become pristine. Survivors rebuild fences, the Relief Center becomes a true sanctuary, and people bring supplies back to the trade depot. The protagonist returns to Mom's home and reads one final letter. Rook's fate can remain a later design choice; his atrocities have consequences either way. The last scene shows fresh green growth breaking through the ash.
+The ruins do not magically become pristine. Survivors rebuild fences, the Relief Center becomes a true sanctuary, and people bring supplies back to the trade depot. The protagonist returns to Mom's home and reads one final letter. **Rook is permanently dead at the protagonist's hand**; the hero cannot undo that choice, and saving Ashvale does not erase it. The final letter urges him to protect others rather than let vengeance define the rest of his life. The last scene shows fresh green growth breaking through the ash.
 
 ## Repeated encounters: Rook is a hunter, not a regular rival
 - **Route 101:** kills Mom and battles player's newly chosen starter.
 - **First checkpoint:** tracks player from reports; attempts to trap them, triggering a battle.
 - **Lastwood:** tries to capture the guardians while the player rescues refugees.
 - **Laboratory:** confronts player after discovering what the Ash Crown truly is; chooses pursuit again.
-- **Crown approach:** final confrontation, personally trying to finish the order given at Cinderfall.
+- **Crown approach:** final confrontation; the player defeats Rook's Pokémon, then kills Rook in a scripted, non-graphic aftermath. The realization is immediate and hollow, not triumphant.
 
 Rook's team should evolve and get harder; the opening Poochyena is his earliest partner, not his permanent only Pokémon.
 
@@ -114,8 +114,17 @@ Rook's team should evolve and get harder; the opening Poochyena is his earliest 
 
 ## Canon extension: the protagonist's fall and redemption
 
-The protagonist is not a purely heroic chosen one. His grief over Rook murdering Mom turns into vengeance. The Danes exploit that anger, and a catastrophic middle-game choice at a Crown relay collapses the storm shields over Lastwood ("Black Rain"). He must take responsibility, rebuild trust, save refugees with Deku and Asta, and finally reject the Crown's ability to enslave the legendary Pokémon.
+The protagonist is not a purely heroic chosen one. His grief over Rook murdering Mom turns into vengeance. The Danes exploit that anger, and a catastrophic middle-game choice at a Crown relay collapses the storm shields over Lastwood ("Black Rain"). He tries to rebuild trust, save refugees with Deku and Asta, but **he still kills Rook at their final confrontation**. The emptiness afterward is his genuine moment of recognition. His lasting redemption begins as he refuses the Crown's power, rescues others and lives with what he has done.
 
 **Full detailed scenes, dialogues, gameplay consequences and act structure:** [PROTAGONIST_FALL_AND_REDEMPTION_v1.md](PROTAGONIST_FALL_AND_REDEMPTION_v1.md).
 
 This new character arc expands the earlier Act I–IV outline; the endgame still frees Shadowvile and Smokerdile, reveals Veylith, and defeats the Danes. Wren's Blissey farm remains a repeatable gameplay feature. Neither document is a claim that these story events have been implemented in the current source-built GBA ROM.
+
+
+## Locked canon correction — Rook's final fate (November 2026)
+- The protagonist **kills Rook himself after their final Pokémon battle**; Rook stays dead.
+- This is **not a glorious, heroic finish**. There is a shocked silence, and the protagonist realizes killing Rook did not restore Mom or erase his grief.
+- Rook receives no absolution; his atrocities still matter. The protagonist's act also has weight and consequences.
+- Deku, Asta and his starter remain with the protagonist, but their reactions show this was not the way to heal.
+- From that moment, the protagonist's redemption is an ongoing commitment to save others, starting by stopping the Ash Crown without becoming its next master.
+- See [PROTAGONIST_FALL_AND_REDEMPTION_v1.md](PROTAGONIST_FALL_AND_REDEMPTION_v1.md) for the complete scene. **Story only, not yet implemented in the compiled ROM.**
