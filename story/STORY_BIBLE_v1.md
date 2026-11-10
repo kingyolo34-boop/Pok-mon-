@@ -108,3 +108,14 @@ Rook's team should evolve and get harder; the opening Poochyena is his earliest 
 - Use a fade to black for Mom's death, not graphic violence.
 - Keep a sustainable eight-gym arc if 16 gyms would delay a polished playable story.
 - If the lore needs a sharper twist, change the Ash Crown and Mark explanation before writing permanent late-game events.
+
+
+---
+
+## Canon extension: the protagonist's fall and redemption
+
+The protagonist is not a purely heroic chosen one. His grief over Rook murdering Mom turns into vengeance. The Danes exploit that anger, and a catastrophic middle-game choice at a Crown relay collapses the storm shields over Lastwood ("Black Rain"). He must take responsibility, rebuild trust, save refugees with Deku and Asta, and finally reject the Crown's ability to enslave the legendary Pokémon.
+
+**Full detailed scenes, dialogues, gameplay consequences and act structure:** [PROTAGONIST_FALL_AND_REDEMPTION_v1.md](PROTAGONIST_FALL_AND_REDEMPTION_v1.md).
+
+This new character arc expands the earlier Act I–IV outline; the endgame still frees Shadowvile and Smokerdile, reveals Veylith, and defeats the Danes. Wren's Blissey farm remains a repeatable gameplay feature. Neither document is a claim that these story events have been implemented in the current source-built GBA ROM.
