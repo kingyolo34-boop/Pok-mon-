@@ -72,7 +72,7 @@ replace_once("src/battle_setup.c",
 p=root/"data/maps/Route101/map.json"
 d=json.loads(p.read_text(encoding="utf8"))
 d["weather"]="WEATHER_VOLCANIC_ASH"
-d["music"]="MUS_ROUTE114"
+d["music"]="MUS_ROUTE101"
 for ob in d["object_events"]:
     if ob.get("local_id")=="LOCALID_ROUTE101_BIRCH":
         ob["graphics_id"]="OBJ_EVENT_GFX_MOM"
