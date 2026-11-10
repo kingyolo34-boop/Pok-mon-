@@ -28,7 +28,9 @@ for species, (name,types,stats,category,evo) in entries.items():
     for field,val in zip(('baseHP','baseAttack','baseDefense','baseSpeed','baseSpAttack','baseSpDefense'),stats):
         text, count = re.subn(r'(\.'+field+r'\s*=\s*)\d+',lambda m: m.group(1)+str(val),text,count=1)
         if count != 1: raise SystemExit('Missing stat '+field+' for '+species)
-    for field,replacement in [('types','MON_TYPES('+types+')'),('speciesName','_("'+name+'")'),('categoryName','_("'+category+'")')]:
+    text, count = re.subn(r'(\.types\s*=\s*)MON_TYPES\([^\)\n]*\)',lambda m: m.group(1)+'MON_TYPES('+types+')',text,count=1)
+    if count != 1: raise SystemExit('Missing types for '+species)
+    for field,replacement in [('speciesName','_("'+name+'")'),('categoryName','_("'+category+'")')]:
         text, count = re.subn(r'(\.'+field+r'\s*=\s*)[^,\n]+',lambda m: m.group(1)+replacement,text,count=1)
         if count != 1: raise SystemExit('Missing '+field+' for '+species)
     if evo is not None:
