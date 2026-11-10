@@ -1,4 +1,4 @@
-name: Build Fallen Ashe GBA (starter test)
+name: Build Fallen Ashe GBA (Cinderfall Chapter One)
 
 on:
   workflow_dispatch:
@@ -38,6 +38,11 @@ jobs:
           grep -E 'speciesName = _\("(Verdrake|Aqualye|Embergryph)"\)' \
             expansion/src/data/pokemon/species_info/gen_3_families.h
 
+      - name: Apply Cinderfall story opening and Rook trainer battle
+        run: |
+          python3 scripts/apply_chapter1.py expansion
+          grep -n 'trainerbattle_single TRAINER_FALLEN_ASHE_ROOK' expansion/data/maps/Route101/scripts.inc
+
       - name: Compile a real native GBA ROM
         working-directory: expansion
         run: |
@@ -59,7 +64,7 @@ jobs:
       - name: Upload playable test ROM
         uses: actions/upload-artifact@v4
         with:
-          name: Fallen-Ashe-GBA-Starter-Test
+          name: Fallen-Ashe-GBA-Cinderfall-Chapter-One
           path: expansion/pokeemerald.gba
           if-no-files-found: error
           retention-days: 7
