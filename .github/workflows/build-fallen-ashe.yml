@@ -1,4 +1,4 @@
-name: Build Fallen Ashe GBA (Cinderfall Town Alpha)
+name: Build Fallen Ashe GBA (Cinderfall Enterable Town)
 
 on:
   workflow_dispatch:
@@ -62,6 +62,17 @@ jobs:
           print("Cinderfall map validation OK: 28 x 29 tiles")
           PY
 
+      - name: Add accessible Cinderfall interiors and verify walking paths
+        run: |
+          python3 scripts/apply_cinderfall_interiors.py expansion
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          t=json.loads(Path("expansion/data/maps/LittlerootTown/map.json").read_text())
+          assert len(t["warp_events"]) == 7
+          print("Validated seven two-way town entries")
+          PY
+
       - name: Compile a real native GBA ROM
         working-directory: expansion
         run: |
@@ -84,7 +95,7 @@ jobs:
       - name: Upload playable test ROM
         uses: actions/upload-artifact@v4
         with:
-          name: Fallen-Ashe-GBA-Cinderfall-Town-Alpha
+          name: Fallen-Ashe-GBA-Cinderfall-Enterable-Town
           path: expansion/pokeemerald.gba
           if-no-files-found: error
           retention-days: 7
