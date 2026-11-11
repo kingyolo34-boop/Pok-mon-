@@ -1,4 +1,4 @@
-name: Build Fallen Ashe GBA (Cinderfall Enterable Town)
+name: Build Fallen Ashe GBA (Cinderfall Art v2)
 
 on:
   workflow_dispatch:
@@ -7,6 +7,7 @@ on:
       - ".github/workflows/build-fallen-ashe.yml"
       - "scripts/**"
       - "patches/**"
+      - "assets/**"
 
 permissions:
   contents: read
@@ -73,6 +74,19 @@ jobs:
           print("Validated seven two-way town entries")
           PY
 
+      - name: Apply Cinderfall polished pixel-art tiles v2
+        run: |
+          python3 scripts/apply_cinderfall_polish_v2.py expansion
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          root=Path("expansion/data/tilesets/secondary/petalburg")
+          i=Image.open(root/"tiles.png")
+          assert i.size[0]==128
+          assert (root/"palettes/12.pal").exists()
+          print("Polished Cinderfall tiles:",i.size)
+          PY
+
       - name: Compile a real native GBA ROM
         working-directory: expansion
         run: |
@@ -95,7 +109,7 @@ jobs:
       - name: Upload playable test ROM
         uses: actions/upload-artifact@v4
         with:
-          name: Fallen-Ashe-GBA-Cinderfall-Enterable-Town
+          name: Fallen-Ashe-GBA-Cinderfall-Art-v2
           path: expansion/pokeemerald.gba
           if-no-files-found: error
           retention-days: 7
