@@ -1,6 +1,6 @@
 # Cinderfall Town — Pixel-Art Polish v2
 
-**Status:** Source art pack committed and automatically applied in GitHub GBA builds. Emulator smoke test not yet completed for this v2 revision.
+**Status:** Built successfully into a 32 MiB native GBA ROM, and mGBA 0.10.5 independently booted it and displayed the modified Cinderfall map. Complete interior/battle progression is not yet regression tested.
 
 ## Why v1 looked rough
 It used 46 quickly generated 16×16 map metatiles: flat front-facing houses, little shading, repetitive road tiles, and uniform fire holes. Enlarging the native GBA image makes those shortcuts apparent.
@@ -22,3 +22,11 @@ A GBA game displays only 240×160 pixels at native resolution; a large 1300-pixe
 
 ## Build
 The GitHub workflow fetches pinned pokeemerald-expansion source, applies gameplay/story patches, generates the existing Cinderfall map and interiors, injects polished art, and builds a `.gba`. The compiled GBA must be tested independently in mGBA/Pizza Boy.
+
+## Verified v2 build
+- GitHub Actions run: https://github.com/kingyolo34-boop/Pok-mon-/actions/runs/42958544929
+- Build result: **success**
+- GBA ROM SHA-256: `f3fbd7f99249f957fb8384a837ce4baf59e2cb40b7c03574ddbdfc6e8a1a06fd`
+- Checked 33,554,432-byte GBA header: `FALLEN ASHE` title, valid checksum.
+- mGBA 0.10.5 smoke test: the ROM boots into the introduction, player reaches Cinderfall, and the new pitched roof/pixel-art tiles render; the visible ash weather darkens the palette.
+- The town art is **not** the pixel-perfect implementation of the cinematic concept poster. Animated smoke/fire, custom NPC art, unique building silhouettes, and better lighting remain next.
