@@ -161,6 +161,18 @@ for spec in specs:
 
 town_path.write_text(json.dumps(town,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
 groups_path.write_text(json.dumps(groups,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+
+# Unlike map metadata, Emerald's event-script assembly includes are explicit.
+# Register each new room so the linker sees its MapScripts and NPC dialogue.
+assembly=root/"data/event_scripts.s"
+asm=assembly.read_text(encoding="utf-8")
+include_anchor='\t.include "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc"'
+assert asm.count(include_anchor)==1,"Unexpected expansion include anchor"
+extra_includes="\\n".join('\\t.include "data/maps/'+x["name"]+'/scripts.inc"' for x in specs)
+extra_includes=extra_includes.replace("\\\\n","\\n").replace("\\\\t","\\t")
+asm=asm.replace(include_anchor,include_anchor+"\\n"+extra_includes,1)
+assembly.write_text(asm,encoding="utf-8")
+
 for i,spec in enumerate(specs,start=3):
     dst=town["warp_events"][i]
     assert dst["dest_map"]==spec["id"]
