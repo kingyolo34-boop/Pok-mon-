@@ -1,4 +1,4 @@
-name: Build Fallen Ashe GBA (Visible Cinderfall Alpha)
+name: Build Fallen Ashe GBA (Cinderfall Town Alpha)
 
 on:
   workflow_dispatch:
@@ -49,6 +49,19 @@ jobs:
           grep -F 'POKéMON FALLEN ASHE' expansion/data/text/birch_speech.inc
           grep -F 'FALLEN ASHE' expansion/Makefile
 
+      - name: Generate real Cinderfall town map and pixel tiles
+        run: |
+          python3 scripts/apply_cinderfall_map.py expansion
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path("expansion")
+          layout=next(x for x in json.loads((root/"data/layouts/layouts.json").read_text())["layouts"] if x["id"]=="LAYOUT_LITTLEROOT_TOWN")
+          assert (layout["width"],layout["height"])==(28,29), layout
+          assert (root/"data/layouts/LittlerootTown/map.bin").stat().st_size==28*29*2
+          print("Cinderfall map validation OK: 28 x 29 tiles")
+          PY
+
       - name: Compile a real native GBA ROM
         working-directory: expansion
         run: |
@@ -71,7 +84,7 @@ jobs:
       - name: Upload playable test ROM
         uses: actions/upload-artifact@v4
         with:
-          name: Fallen-Ashe-GBA-Visible-Alpha
+          name: Fallen-Ashe-GBA-Cinderfall-Town-Alpha
           path: expansion/pokeemerald.gba
           if-no-files-found: error
           retention-days: 7
