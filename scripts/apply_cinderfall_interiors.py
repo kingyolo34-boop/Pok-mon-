@@ -149,7 +149,7 @@ for spec in specs:
         for j,line in enumerate(lines):
             suffix=(r"\p" if j==len(lines)-1 and i<len(pages)-1 else
                     r"\n" if j<len(lines)-1 else "")
-            script+='    .string "'+line+suffix+('"\\n')
+            script += '    .string "' + line + suffix + '"\n'
     # Replace the final string terminator with a $ on last line.
     lines=script.splitlines()
     lines[-1]=lines[-1].replace('"\n','"').replace('"\r','"')
